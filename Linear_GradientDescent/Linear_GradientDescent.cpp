@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <random>
+#include <math.h>//소수점 반올림 계산을 위해 사용
+
 #define RANDOMRATE 50
 using namespace std;
 
@@ -21,10 +23,9 @@ public:
     int sameCostStack;
 
     double wRandomRate;
-    double bRandomMin;
-    double bRandomMax;
+    double bRandomRate;
 public:
-    Machine() : prevW(0), w(0), prevCost(DBL_MAX), cost(1), b(0), sameCostStack(0), wRandomRate(RANDOMRATE), bRandomMin(0), bRandomMax(99) {};
+    Machine() : prevW(0), w(0), prevCost(DBL_MAX), cost(1), b(0), sameCostStack(0), wRandomRate(RANDOMRATE), bRandomRate(RANDOMRATE) {};
     double Cost(DataSet data[], double x1, double x2, double x3) {
         double cost = Loss(data[0], x1) + Loss(data[1], x2) + Loss(data[2], x3);
         cost /= 3;
@@ -44,7 +45,11 @@ int main()
     // random_device 를 통해 난수 생성 엔진을 초기화 한다.
     mt19937 gen(rd());
 
-    DataSet dataSet[3] = { {1, 1, 0, 0.01}, {1, 2, 0, 0.02}, {1, 3, 0, 0.03} };
+    //    y = wx + b 식에서  w  x  b  y
+    DataSet dataSet[3] = { {1, 1, 0, 1},
+                           {1, 2, 0, 2},
+                           {1, 3, 0, 3} };
+
     Machine* machine = new Machine();
 
     //w에 대한 편미분 경사하강
@@ -78,6 +83,7 @@ int main()
             cout << "b : " << machine->b << endl;
             cout << "Cost : " << machine->cost << endl;
             if (machine->cost == 0)
+            //if (ceil(machine->cost * 100000) / 100000 == 0)
                 break;
         }
 
@@ -85,10 +91,10 @@ int main()
         if (machine->cost < machine->prevCost) {
             int dir = (machine->prevW - machine->w > 0) ? -1 : +1;
 
-            //cout << "wRandomMin Changed : " << machine->prevW - dir * machine->wRandomRate << "->" <<
-            //    machine->w - dir * machine->wRandomRate << endl;
-            //cout << "wRandomMax Changed : " << machine->prevW + dir * machine->wRandomRate << "->" <<
-            //    machine->w + dir * machine->wRandomRate << endl;
+            cout << "wRandomMin Changed : " << machine->prevW - dir * machine->wRandomRate << "->" <<
+                machine->w - dir * machine->wRandomRate << endl;
+            cout << "wRandomMax Changed : " << machine->prevW + dir * machine->wRandomRate << "->" <<
+                machine->w + dir * machine->wRandomRate << endl;
 
             machine->prevCost = machine->cost;
             machine->prevW = machine->w;
@@ -96,11 +102,11 @@ int main()
             machine->sameCostStack = 0;
         }
         //같은 cost가 반복되는 양상을 보이면 
-        else if (++machine->sameCostStack % 100 == 0 && learningRate != 0) 
+        else if (++machine->sameCostStack % 100 == 0 && learningRate != 0)
         {
-             //가속하여 하강한다.
-             cout << "#### RamdomRate Chenged!! " << machine->wRandomRate << "->" << machine->wRandomRate / learningRate << endl;
-             machine->wRandomRate /= learningRate;
+            //가속하여 하강한다.
+            cout << "#### RamdomRate Chenged!! " << machine->wRandomRate << "->" << machine->wRandomRate / learningRate << endl;
+            machine->wRandomRate /= learningRate;
         }
         //std::system("PAUSE");
     }
