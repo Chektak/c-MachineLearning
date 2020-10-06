@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_Custom
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_GradientDescent", "Linear_GradientDescent\Linear_GradientDescent.vcxproj", "{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1005Matrix", "1006Procession\1006Procession.vcxproj", "{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1006LinearRegression_Matrix", "1006LinearRegression_Matrix\1006LinearRegression_Matrix.vcxproj", "{24B18B25-5414-4575-9B3A-4176A3F220C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +35,22 @@ Global
 		{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}.Release|x64.Build.0 = Release|x64
 		{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}.Release|x86.ActiveCfg = Release|Win32
 		{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}.Release|x86.Build.0 = Release|Win32
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Debug|x64.ActiveCfg = Debug|x64
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Debug|x64.Build.0 = Debug|x64
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Debug|x86.ActiveCfg = Debug|Win32
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Debug|x86.Build.0 = Debug|Win32
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Release|x64.ActiveCfg = Release|x64
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Release|x64.Build.0 = Release|x64
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Release|x86.ActiveCfg = Release|Win32
+		{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}.Release|x86.Build.0 = Release|Win32
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Debug|x64.ActiveCfg = Debug|x64
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Debug|x64.Build.0 = Debug|x64
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Debug|x86.ActiveCfg = Debug|Win32
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Debug|x86.Build.0 = Debug|Win32
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x64.ActiveCfg = Release|x64
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x64.Build.0 = Release|x64
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x86.ActiveCfg = Release|Win32
+		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

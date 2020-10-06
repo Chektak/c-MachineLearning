@@ -121,8 +121,8 @@ int main()
 
     //------------- y = wx + b 식에서  w  x  b
     TestDataSet dataSet[TRAININGDATA_NUM] = {   {-1, 1, 100},
-                                                {-5, 2, 100},
-                                                {-13, 3, 100} };
+                                                {-1, 2, 100},
+                                                {-1, 3, 100} };
     //dataSet의 y는 자동으로 계산해 넣음
     for (int i = 0; i < TRAININGDATA_NUM; i++) {
         dataSet[i].y = machine->GetYLinear(dataSet[i].w, dataSet[i].xData, dataSet[i].b);
