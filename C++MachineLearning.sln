@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_Custom
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_GradientDescent", "Linear_GradientDescent\Linear_GradientDescent.vcxproj", "{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1005Matrix", "1006Procession\1006Procession.vcxproj", "{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1005Matrix", "1005Matrix\1005Matrix.vcxproj", "{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1006LinearRegression_Matrix", "1006LinearRegression_Matrix\1006LinearRegression_Matrix.vcxproj", "{24B18B25-5414-4575-9B3A-4176A3F220C2}"
 EndProject
