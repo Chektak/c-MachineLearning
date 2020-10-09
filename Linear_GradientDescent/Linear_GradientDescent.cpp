@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <random>
 
-#define RANDOMRATE 50
+#define RANDOMRATE 10
 #define TRAININGDATA_NUM 3
 using namespace std;
 
@@ -120,9 +120,9 @@ int main()
     cout << "\n\ny = wx + b 1차방정식 선형회귀 문제 훈련" << endl;
 
     //------------- y = wx + b 식에서  w  x  b
-    TestDataSet dataSet[TRAININGDATA_NUM] = {   {-1, 1, 100},
-                                                {-1, 2, 100},
-                                                {-1, 3, 100} };
+    TestDataSet dataSet[TRAININGDATA_NUM] = {   {0, 1, 100},
+                                                {0, 2, 100},
+                                                {0, 3, 100} };
     //dataSet의 y는 자동으로 계산해 넣음
     for (int i = 0; i < TRAININGDATA_NUM; i++) {
         dataSet[i].y = machine->GetYLinear(dataSet[i].w, dataSet[i].xData, dataSet[i].b);
@@ -154,7 +154,7 @@ int main()
         bestW = roundl(bestW * 1000000) * 0.000001;
 
         //100번마다 출력하거나, 코스트가 0이 되었을 때 출력
-        if (curRepeatNum % 100 == 0 || bestCost <= 0) {
+        if (curRepeatNum % 1 == 0 || bestCost <= 0) {
             cout << "------------------------------------------------" << endl;
             cout << curRepeatNum << "번째 세대" << endl;
             

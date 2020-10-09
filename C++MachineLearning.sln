@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_Custom", "C++MachineLearning\C++MachineLearning.vcxproj", "{D6B78B1E-77B7-47E5-AC28-1CFA2F6B26D7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927LinearRegression_GradientDescent", "Linear_GradientDescent\Linear_GradientDescent.vcxproj", "{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0927SimpleLinearRegression_Random", "Linear_GradientDescent\Linear_GradientDescent.vcxproj", "{415A5EE9-DF86-4F97-9EB5-D3602BE8F003}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1005Matrix", "1005Matrix\1005Matrix.vcxproj", "{2198BC54-8CD5-48AC-BD19-F34F5C8B59CE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1006LinearRegression_Matrix", "1006LinearRegression_Matrix\1006LinearRegression_Matrix.vcxproj", "{24B18B25-5414-4575-9B3A-4176A3F220C2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1009SimpleLinearRegression_NonRandom", "1009SimpleLinearRegression_NonRandom\1009SimpleLinearRegression_NonRandom.vcxproj", "{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x64.Build.0 = Release|x64
 		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x86.ActiveCfg = Release|Win32
 		{24B18B25-5414-4575-9B3A-4176A3F220C2}.Release|x86.Build.0 = Release|Win32
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Debug|x64.ActiveCfg = Debug|x64
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Debug|x64.Build.0 = Debug|x64
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Debug|x86.ActiveCfg = Debug|Win32
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Debug|x86.Build.0 = Debug|Win32
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x64.ActiveCfg = Release|x64
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x64.Build.0 = Release|x64
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x86.ActiveCfg = Release|Win32
+		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

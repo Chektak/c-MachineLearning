@@ -1,7 +1,2 @@
 ﻿  1006LinearRegression_Matrix.cpp
-C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\1006LinearRegression_Matrix\1006LinearRegression_Matrix.cpp(145,19): error C2677: 이항 '+=': '_Ty' 형식을 사용하는 전역 연산자가 없거나 허용되는 변환이 없습니다.
-          with
-          [
-              _Ty=std::array<double,1>
-          ]
-C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\1006LinearRegression_Matrix\1006LinearRegression_Matrix.cpp(128): message : 컴파일되는 함수 템플릿 인스턴스화 'double Machine::Loss<5,3,3,1>(void)'에 대한 참조를 확인하세요.
+  1006LinearRegression_Matrix.vcxproj -> C:\Users\dbstn\source\repos\c-MachineLearning\Debug\1006LinearRegression_Matrix.exe

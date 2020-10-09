@@ -1,5 +1,7 @@
 ﻿#include <iostream>
 #include <array>
+//array 컨테이너 선언 및 초기화 :: https://sodocumentation.net/ko/cplusplus/topic/2712/std----array
+// https://blockdmask.tistory.com/332
 using namespace std;
 
 namespace Mathf {
@@ -97,16 +99,32 @@ int main()
 
     Mathf::MatrixProduct<5, 3, 3, 1>(xMatrix, wMatrix, resultMatrix);
     
-    std::array<std::array<double, 1>, 3>* wEmptyMatrix;
-    wEmptyMatrix = Mathf::GetEmptyWMatrix<1, 3>();
+    //std::array<std::array<double, 1>, 3>* wEmptyMatrix;
+    //wEmptyMatrix = Mathf::GetEmptyWMatrix<1, 3>();
+    //배열의 모든 요소를 0으로 초기화
+    std::array<std::array<double, 1>, 3> wEmptyMatrix = { 3 };
     cout << "\nxMatrix와 resultMatrix로 w행렬을 추정해 빈 행렬 생성" << endl;
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 3; i++) {
         //열
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 1; j++) {
             printf("%.0lf\n", wEmptyMatrix[i][j]);
         }
-        cout << endl;
     }
+    std::array<std::array<double, 1>, 3> bestW = wEmptyMatrix;
+    bestW[0][0] = 398;
 
-
+    cout << "\n복사본 w행렬" << endl;
+    for (int i = 0; i < 3; i++) {
+        //열
+        for (int j = 0; j < 1; j++) {
+            printf("%.0lf\n", bestW[i][j]);
+        }
+    }
+    cout << "\n참조 유무 확인" << endl;
+    for (int i = 0; i < 3; i++) {
+        //열
+        for (int j = 0; j < 1; j++) {
+            printf("%.0lf\n", wEmptyMatrix[i][j]);
+        }
+    }
 }
