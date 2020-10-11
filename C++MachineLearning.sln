@@ -11,7 +11,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1005Matrix", "1005Matrix\10
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1006LinearRegression_Matrix", "1006LinearRegression_Matrix\1006LinearRegression_Matrix.vcxproj", "{24B18B25-5414-4575-9B3A-4176A3F220C2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1009SimpleLinearRegression_NonRandom", "1009SimpleLinearRegression_NonRandom\1009SimpleLinearRegression_NonRandom.vcxproj", "{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1009SimpleLinearRegression_Random", "1009SimpleLinearRegression_NonRandom\1009SimpleLinearRegression_NonRandom.vcxproj", "{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1010MultipleRegression", "1010MultipleRegression\1010MultipleRegression.vcxproj", "{EB90A895-ADFE-4E6C-8270-59F70879408F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x64.Build.0 = Release|x64
 		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x86.ActiveCfg = Release|Win32
 		{B7F319B6-AD2B-47B4-8207-15C6A297EB2A}.Release|x86.Build.0 = Release|Win32
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Debug|x64.ActiveCfg = Debug|x64
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Debug|x64.Build.0 = Debug|x64
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Debug|x86.ActiveCfg = Debug|Win32
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Debug|x86.Build.0 = Debug|Win32
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Release|x64.ActiveCfg = Release|x64
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Release|x64.Build.0 = Release|x64
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Release|x86.ActiveCfg = Release|Win32
+		{EB90A895-ADFE-4E6C-8270-59F70879408F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <random>
 
-#define TRAININGDATA_NUM 3
+#define TRAININGDATA_NUM 4
 using namespace std;
 
 // 시드값을 얻기 위한 random_device 생성.
@@ -121,16 +121,25 @@ int main()
 
     cout << "\n\ny = wx + b 1차방정식 선형회귀 문제 훈련" << endl;
 
-    //------------- y = wx + b 식에서  w  x  b
-    TestDataSet dataSet[TRAININGDATA_NUM] = {   {-10, 1, 100},
-                                                {50, 2, 100},
-                                                {14, 3, 100} };
+    //------------- y = wx + b 식에서             w  x  b y
+    //TestDataSet dataSet[TRAININGDATA_NUM] = {   {3, 1, 0},
+    //                                            {3, 2, 0},
+    //                                            {3, 3, 0},
+    //                                            {3, 4, 0} };
     //dataSet의 y는 자동으로 계산해 넣음
-    for (int i = 0; i < TRAININGDATA_NUM; i++) {
+    /*for (int i = 0; i < TRAININGDATA_NUM; i++) {
         dataSet[i].y = machine->GetYLinear(dataSet[i].w, dataSet[i].xData, dataSet[i].b);
         cout << "\tDataSet " << i + 1 << " { w, x, b, Y } = " 
             << dataSet[i].w << ", " << dataSet[i].xData << ", " << dataSet[i].b << ", " << dataSet[i].y << endl;
-    }
+    }*/
+    
+    //시험 성적 훈련
+    //------------- y = wx + b 식에서             ?  x  ?   y 가 주어짐
+    TestDataSet dataSet[TRAININGDATA_NUM] = {   {0, 2, 0, 25},
+                                                {0, 3, 0, 50},
+                                                {0, 4, 0, 42},
+                                                {0, 5, 0, 61} };
+
     cout << "훈련 횟수를 입력해주세요 : ";
     cin >> trainingNum;
 
@@ -146,7 +155,9 @@ int main()
     cout.precision(15);
     
     //y절편은 기울기에 0을 곱하는 것으로 구할 수 있음
-    machine->b = machine->GetYLinear(0, dataSet[0].xData, dataSet[0].b);
+    for(int i=0; i < TRAININGDATA_NUM; i++)
+        machine->b += machine->GetYLinear(0, dataSet[i].xData, dataSet[i].b);
+    machine->b /= TRAININGDATA_NUM;
 
     for (int curRepeatNum = 0; curRepeatNum <= trainingNum; curRepeatNum++) {
         double bestCost = machine->Training(curRepeatNum, dataSet);
