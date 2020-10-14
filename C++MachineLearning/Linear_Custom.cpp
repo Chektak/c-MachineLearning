@@ -59,33 +59,7 @@ int main()
     //cost(정답과 가설간의 차)가 0이 될 때까지 반복한다.
     int trainingNum = 0;
     while (machine->cost != 0) {
-        uniform_real_distribution<double> dis(machine->wRandomMin, 1);
 
-        machine->w = dis(gen);
-        //machine->b = randomInt(gen);
-        machine->prevCost = machine->cost;
-        machine->cost = machine->Cost(dataSet, 1, 2, 3);
-
-        cout << "------------------------------------------------" <<  endl;
-        cout << ++trainingNum << endl;
-        cout << "w : " << machine->w << endl;
-        cout << "b : " << machine->b << endl;
-        cout << "loss1 : " << machine->Loss(dataSet[0], 1) << endl;
-        cout << "loss2 : " << machine->Loss(dataSet[1], 2) << endl;
-        cout << "loss3 : " << machine->Loss(dataSet[2], 3) << endl;
-
-        cout << "cost : " << machine->cost << endl;
-
-
-
-
-        //코스트 줄이기에 성공했다면
-        if (machine->cost < machine->prevCost) {
-            //double형이 보장하는 소수점 15자리까지 출력
-            cout.precision(15);
-            cout << "wRandomMin Changed : " << machine->wRandomMin << "->" << machine->w<< endl;
-            machine->wRandomMin = machine->w;
-        }
 
         system("PAUSE");
     }
