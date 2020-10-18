@@ -24,6 +24,7 @@
     <ProjectGuid>{64fbf6d5-520c-4c16-b641-b03cd7e5c86f}</ProjectGuid>
     <RootNamespace>My1015SimpleRegressionDirectionalPartialDerivative</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>1017SimpleRegression_DirectionalPartialDerivative</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

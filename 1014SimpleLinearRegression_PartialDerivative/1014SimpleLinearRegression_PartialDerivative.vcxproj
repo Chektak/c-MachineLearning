@@ -24,7 +24,7 @@
     <ProjectGuid>{8054d91f-fe5c-415b-95a4-2ba49396aa1e}</ProjectGuid>
     <RootNamespace>My1014SimpleLinearRegressionPartialDerivative</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>1013SimpleLinearRegression_PartialDerivative</ProjectName>
+    <ProjectName>1014SimpleLinearRegression_PartialDerivative</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

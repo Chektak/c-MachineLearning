@@ -1,15 +1,9 @@
 ﻿#include <iostream>
-#include <random>
 #include <array>
 
 #define TRAININGDATA_NUM 5
 #define VARIABLE_NUM 2 //머신러닝 모델의 변수 갯수(구해야할 변수 갯수)
 using namespace std;
-
-// 시드값을 얻기 위한 random_device 생성.
-random_device rd;
-// random_device 를 통해 난수 생성 엔진을 초기화 한다.
-mt19937 gen(rd());
 
 typedef struct datas {
     double x;
@@ -157,11 +151,11 @@ int main()
     //------------- y = wx + b 식에서                       x시간 y점수가 주어짐
     //밑 데이터 셋에서는 w가 1, b가 1.1일 때 f(x)= y 데이터 성립
     array<TrainingDataSet, TRAININGDATA_NUM> dataSet = { 
-                                                            1, 1.5,
-                                                            2, 2.5,
-                                                            3, 3.5,
-                                                            4, 4.5,
-                                                            5, 5.5 };
+                                                            1, 1.1,
+                                                            2, 2.1,
+                                                            3, 3.1,
+                                                            4, 4.1,
+                                                            5, 5.1 };
     machine->dataSet = dataSet;
 
     cout << "훈련 횟수를 입력해주세요 : ";
