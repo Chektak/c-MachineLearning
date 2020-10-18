@@ -3,7 +3,6 @@
 #include <array>
 
 #define TRAININGDATA_NUM 5
-#define GRADIENT_ERROR 0.00000000001 //기울기의 평균 오차
 #define VARIABLE_NUM 2 //머신러닝 모델의 변수 갯수(구해야할 변수 갯수)
 using namespace std;
 
@@ -28,83 +27,73 @@ public:
     int wDir;
     int bDir;
 
-    double bestW;
-    double bestB;
-
     array<TrainingDataSet, TRAININGDATA_NUM> dataSet;
 
     double cost;
-    double bestCost;
     double learningRate;
 
     int sameCostStack;
     int accelRate;
 public:
-    Machine() : w(10), b(10), bestW(0), bestB(0), wDir(-1), bDir(-1), 
-        bGradient(DBL_MAX), wGradient(DBL_MAX), cost(DBL_MAX), bestCost(DBL_MAX), learningRate(0),
+    Machine() : w(10), b(10), wDir(-1), bDir(-1), 
+        bGradient(DBL_MAX), wGradient(DBL_MAX), cost(DBL_MAX),  learningRate(0),
     sameCostStack(0), accelRate(10){};
 
     /// <summary>
     /// </summary>
     /// <returns>cost를 반환한다.</returns>
     double Training(int curRepeatNum) {
-
-#pragma region 편미분 방향 검출
-        double prevWGradient = wGradient;
-        wGradient = wPartialDerivative(w + wDir * learningRate, bestB);
-        //prevGradient에서 사용한 방향이 더 0에 가깝다면
-        if (prevWGradient * prevWGradient < wGradient * wGradient) {
-            wDir *= -1;
-            //wGradient = prevWGradient;
-        }
-
-#pragma endregion
-        //wGradient가 평균 오차 내에 해당하지 않을 경우 반복
-        while (wGradient > GRADIENT_ERROR || wGradient < -GRADIENT_ERROR) {
-            w += wDir * learningRate;
-            //양의 방향으로 가야할 때, wGradient가 양수가 되면 종료한다. 음수 방향의 경우도 마찬가지
-            if ((wDir == 1 && wGradient >= 0) || (wDir == -1 && wGradient <= 0)) {
-                bestW = w;
-                break;
-            }
-
-            wGradient = wPartialDerivative(w, bestB);
-
-        }
-
-        bGradient = bPartialDerivative(bestW, b);
-
-#pragma region 편미분 방향 검출
-        double prevBGradient = bGradient;
-        bGradient = wPartialDerivative(b + bDir * learningRate, bestB);
-        //prevGradient에서 사용한 방향이 더 0에 가깝다면
-        if (prevBGradient * prevBGradient < bGradient * bGradient) {
-            bDir *= -1;
-            //bGradient = prevBGradient;
-        }
-#pragma endregion
-        while (bGradient > GRADIENT_ERROR || bGradient < -GRADIENT_ERROR) {
-            b += bDir * learningRate;
-            if ((bDir == 1 && bGradient >= 0) || (bDir == -1 && bGradient <= 0)) {
-                bestB = b;
-                break;
-            }
-            bGradient = bPartialDerivative(bestW, b);
-        }
+        wUpdate();
+        bUpdate();
 
         cost = Cost();
-        if (cost < bestCost) {
-            bestCost = cost;
-        }
-        //else if (++sameCostStack % (VARIABLE_NUM * 100) == 0)
-        //{
-        //    cout << "#### LearningRate Accelerated!! " << learningRate << "->" 
-        //        << learningRate / accelRate << endl;
-        //    learningRate /= accelRate;
-        //}
-        return bestCost;
+        return cost;
     }
 
+    bool wUpdate() {
+        wGradient = wPartialDerivative(w, b);
+#pragma region 편미분 방향 검출
+        if (wGradient > 0)
+            wDir = -1;
+        else if (wGradient < 0)
+            wDir = 1;
+        else
+            return true;
+#pragma endregion
+
+        while (true) {
+            w += wDir * learningRate;
+            wGradient = wPartialDerivative(w, b);
+
+            //양의 방향으로 가야할 때, wGradient가 양수가 되면 종료한다. 음수 방향의 경우도 마찬가지
+            if ((wDir == 1 && wGradient >= 0) || (wDir == -1 && wGradient <= 0)) {
+                break;
+            }
+        }
+        return false;
+    }
+
+    bool bUpdate() {
+        bGradient = bPartialDerivative(w, b);
+#pragma region 편미분 방향 검출
+        if (bGradient > 0)
+            bDir = -1;
+        else if (bGradient < 0)
+            bDir = 1;
+        else
+            return true;
+#pragma endregion
+
+        while (true) {
+            b += bDir * learningRate;
+            bGradient = bPartialDerivative(w, b);
+
+            if ((bDir == 1 && bGradient >= 0) || (bDir == -1 && bGradient <= 0)) {
+                break;
+            }
+        }
+        return false;
+    }
     //w에 대한 편미분 함수
     double wPartialDerivative(const double& w, const double& b) {
         double newW = 0;
@@ -139,7 +128,7 @@ public:
     /// <param name="yTestData"></param>
     /// <returns></returns>
     double Loss(double xInput, double yTestData) {
-        double loss = GetYLinear(bestW, xInput, bestB) - yTestData;
+        double loss = GetYLinear(w, xInput, b) - yTestData;
         loss *= loss;
         return loss;
     }
@@ -197,8 +186,8 @@ int main()
 
         //25번마다 출력하거나, 코스트가 0이 되었을 때 출력
         if (curRepeatNum % 25 == 0 || printCost <= 0) {
-            printW = machine->bestW;
-            printB = machine->bestB;
+            printW = machine->w;
+            printB = machine->b;
 
             //소수점 15자리 이상까지 반올림
             printCost = roundl(printCost * 100000000000000) * 0.00000000000001;
@@ -208,18 +197,21 @@ int main()
 
             cout << "------------------------------------------------" << endl;
             cout << curRepeatNum << "번째 세대" << endl;
-            //boolalpha : bool을 true/false로 출력해줌
-            //cout << "다음 세대에 시도할 방향 :: minDir : " << boolalpha << machine->minDir << ", maxDir : " << boolalpha << machine->maxDir << endl;
-
             cout << "BestW : " << printW << endl;
             cout << "b : " << printB << endl;
             cout << "BestCost : " << printCost << endl;
 
-            if (printCost == 0)
+            if (printCost == 0) {
+                cout << "------------------------------------------------" << endl;
+                cout << curRepeatNum << "번째 세대" << endl;
+                cout << "BestW : " << printW << endl;
+                cout << "b : " << printB << endl;
+                cout << "BestCost : " << printCost << endl;
+
                 break;
+            }
         }
     }
-    cout << "예측 결과 : w  = " << printW << ", b = " << printB;
 
     return 0;
 }

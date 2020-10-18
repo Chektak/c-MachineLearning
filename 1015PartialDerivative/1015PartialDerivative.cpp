@@ -2,7 +2,7 @@
 #include <array>
 #include <conio.h> //kbhit, getch
 
-#define TRAININGDATA_NUM 6
+#define TRAININGDATA_NUM 5
 #define ESC 27
 #define LEFT 75
 #define RIGHT 77
@@ -26,11 +26,11 @@ typedef struct datas {
 }TrainingDataSet;
 
 array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
-                                                     1, 1.535,
-                                                     2, 2.535,
-                                                     3, 3.535,
-                                                     4, 4.535,
-                                                     5, 5.535 };
+                                                     1, 1.1,
+                                                     2, 2.1,
+                                                     3, 3.1,
+                                                     4, 4.1,
+                                                     5, 5.1 };
 /*
 array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
                                                      1, 1.1,
