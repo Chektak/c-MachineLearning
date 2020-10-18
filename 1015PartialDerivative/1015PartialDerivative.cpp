@@ -2,7 +2,7 @@
 #include <array>
 #include <conio.h> //kbhit, getch
 
-#define TRAININGDATA_NUM 5
+#define TRAININGDATA_NUM 6
 #define ESC 27
 #define LEFT 75
 #define RIGHT 77
@@ -25,31 +25,26 @@ typedef struct datas {
     double y;
 }TrainingDataSet;
 
-//array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
-//                                                     1, 1,
-//                                                     1, 1,
-//                                                     1, 1,
-//                                                     1, 1,
-//                                                     1, 1 };
-
-//array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
-//                                                     1, 1.235,
-//                                                     2, 2.235,
-//                                                     3, 3.235,
-//                                                     4, 4.235,
-//                                                     5, 5.235 };
-
 array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
-                                                            1, 2,
-                                                            2, 3,
-                                                            3, 4,
-                                                            4, 5,
-                                                            5, 6 };
+                                                     1, 1.535,
+                                                     2, 2.535,
+                                                     3, 3.535,
+                                                     4, 4.535,
+                                                     5, 5.535 };
+/*
+array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
+                                                     1, 1.1,
+                                                     2, 2.1,
+                                                     3, 3.1,
+                                                     4, 4.1,
+                                                     5, 5.1 };*/
+
 //array<TrainingDataSet, TRAININGDATA_NUM> dataSet = {
 //                                                     4, 2,
 //                                                     4, 10,
 //                                                     7, 4,
 //                                                     7, 22,
+//                                                     8, 16,
 //                                                     9, 10};
 
 //w에 대한 편미분 함수
@@ -134,12 +129,10 @@ int main()
             system("cls");
 
             std::cout << "-------------------------------------------------" << endl;
-            std::cout << "LearningRate = " <<learningRate<< endl;
             std::cout << "w = " << w << ", b = " << b << endl;
             std::cout << "w 편미분 : " << wUpdate(w, b) << endl;
             std::cout << "b 편미분 : " << bUpdate(w, b) << endl;
             std::cout << "Cost(w, b) 결과 : " << Cost(w, b) << endl;
-            
             std::cout << "-------------------------------------------------" << endl;
         }
     } while (programRunning);

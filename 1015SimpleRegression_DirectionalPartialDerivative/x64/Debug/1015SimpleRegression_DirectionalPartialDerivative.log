@@ -1,3 +1,2 @@
 ﻿  1015SimpleRegression_DirectionalPartialDerivative.cpp
-C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\1015SimpleRegression_DirectionalPartialDerivative\1015SimpleRegression_DirectionalPartialDerivative.cpp(93): warning C4715: 'Machine::bUpdate': 모든 제어 경로에서 값을 반환하지는 않습니다.
   1015SimpleRegression_DirectionalPartialDerivative.vcxproj -> C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\x64\Debug\1015SimpleRegression_DirectionalPartialDerivative.exe
