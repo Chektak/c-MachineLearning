@@ -140,7 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1015SimpleRegression_DirectionalPartialDerivative.cpp" />
+    <ClCompile Include="1017SimpleRegression_DirectionalPartialDerivative.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
