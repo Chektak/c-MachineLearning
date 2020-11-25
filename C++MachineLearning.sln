@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1017SimpleRegression_Direct
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1018MultipleRegression_DirectionalPartialDerivative", "1018MultipleRegression_DirectionalPartialDerivative\1018MultipleRegression_DirectionalPartialDerivative.vcxproj", "{36915421-37DE-4479-BD2F-EDA62E0D0507}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "1021LogisticRegression", "1021LogisticRegression\1021LogisticRegression.vcxproj", "{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -121,6 +123,14 @@ Global
 		{36915421-37DE-4479-BD2F-EDA62E0D0507}.Release|x64.Build.0 = Release|x64
 		{36915421-37DE-4479-BD2F-EDA62E0D0507}.Release|x86.ActiveCfg = Release|Win32
 		{36915421-37DE-4479-BD2F-EDA62E0D0507}.Release|x86.Build.0 = Release|Win32
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Debug|x64.ActiveCfg = Debug|x64
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Debug|x64.Build.0 = Debug|x64
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Debug|x86.ActiveCfg = Debug|Win32
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Debug|x86.Build.0 = Debug|Win32
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Release|x64.ActiveCfg = Release|x64
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Release|x64.Build.0 = Release|x64
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Release|x86.ActiveCfg = Release|Win32
+		{4AD8F61A-90E4-4D60-8C76-DD5BA56AC427}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

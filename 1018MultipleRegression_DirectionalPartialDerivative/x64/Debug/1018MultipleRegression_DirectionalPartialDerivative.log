@@ -1,2 +1,4 @@
-﻿  1020MultipleRegression_AccelationDirPartialDerivative.cpp
-  1018MultipleRegression_DirectionalPartialDerivative.vcxproj -> C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\x64\Debug\1018MultipleRegression_DirectionalPartialDerivative.exe
+﻿  1018MultipleRegression_DirectionalPartialDerivative.cpp
+  LINK : C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\x64\Debug\1018MultipleRegression_DirectionalPartialDerivative.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+1020MultipleRegression_AccelationDirPartialDerivative.obj : error LNK2005: main이(가) 1018MultipleRegression_DirectionalPartialDerivative.obj에 이미 정의되어 있습니다.
+C:\Users\dbstn\Desktop\GitHub\c-MachineLearning\x64\Debug\1018MultipleRegression_DirectionalPartialDerivative.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.

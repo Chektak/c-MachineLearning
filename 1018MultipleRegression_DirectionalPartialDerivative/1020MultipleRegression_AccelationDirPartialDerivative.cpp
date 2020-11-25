@@ -3,7 +3,7 @@
 //훈련 데이터 x데이터, Y 행렬의 행(m) 개수
 #define TRAININGMATRIX_DATA_M 5
 //훈련 데이터 X데이터 행렬의 열(n) 개수
-#define TRAININGMATRIX_X_N 2
+#define TRAININGMATRIX_X_N 3
 //훈련 데이터 Y행렬 열(n) 개수
 #define TRAININGMATRIX_Y_N 1
 
@@ -59,7 +59,7 @@ public:
     void TrainingDataSetup() {
 #pragma region 훈련 데이터 설정
         //실제 노이즈 포함 데이터
-       /* trainingDataSet.xMatrix = {
+        trainingDataSet.xMatrix = {
             73, 80, 75,
             93, 88, 93,
             89, 91, 90,
@@ -72,11 +72,11 @@ public:
             180,
             196,
             142
-        };*/
+        };
 
         //이 데이터셋을 사용할 때에는 TRAININGMATRIX_X_N를 2로 설정해야 함
         //xMatrix의 열이 2개일 경우
-        trainingDataSet.xMatrix = {
+       /* trainingDataSet.xMatrix = {
             10, 5,
             9,  5,
             3,  2,
@@ -89,10 +89,10 @@ public:
             50,
             60,
             40
-        };
+        };*/
 
         //이 데이터에서 wMatrix는 1, 1, 1을 예측해야 함
-        /*trainingDataSet.xMatrix = {
+       /* trainingDataSet.xMatrix = {
             100, 100, 100,
             100, 0, 0,
             0, 0, 100,
