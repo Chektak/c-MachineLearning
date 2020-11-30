@@ -1,10 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <array> 
-//ÈÆ·Ã µ¥ÀÌÅÍ xµ¥ÀÌÅÍ, Y Çà·ÄÀÇ Çà(m) °³¼ö
+//í›ˆë ¨ ë°ì´í„° xë°ì´í„°, Y í–‰ë ¬ì˜ í–‰(m) ê°œìˆ˜
 #define TRAININGMATRIX_DATA_M 10
-//ÈÆ·Ã µ¥ÀÌÅÍ Xµ¥ÀÌÅÍ Çà·ÄÀÇ ¿­(n) °³¼ö
-#define TRAININGMATRIX_X_N 3
-//ÈÆ·Ã µ¥ÀÌÅÍ YÇà·Ä ¿­(n) °³¼ö
+//í›ˆë ¨ ë°ì´í„° Xë°ì´í„° í–‰ë ¬ì˜ ì—´(n) ê°œìˆ˜
+#define TRAININGMATRIX_X_N 3 + 1
+//í›ˆë ¨ ë°ì´í„° Yí–‰ë ¬ ì—´(n) ê°œìˆ˜
 #define TRAININGMATRIX_Y_N 1
 
 using namespace std;
@@ -34,23 +34,23 @@ public:
     Machine() : cost(INT_MAX), bestCost(INT_MAX), learningRate(0), wMatrix({ 0 }), trainingDataSet({ 0 }), bestWMatrix({0}), sameCostStack(0) {};
 
     void TrainingDataSetup(DATASEX sex = DATASEX::MEN) {
-#pragma region ¾î¸¥/¾ÆÀÌ ¿¹Ãø ÈÆ·Ã µ¥ÀÌÅÍ ¼³Á¤(µ¥ÀÌÅÍ ÃâÃ³ : Áúº´°ü¸®º»ºÎ 2018 ¼Ò¾Æ Ç¥ÁØ ½ÅÀå)
+#pragma region ì–´ë¥¸/ì•„ì´ ì˜ˆì¸¡ í›ˆë ¨ ë°ì´í„° ì„¤ì •(ë°ì´í„° ì¶œì²˜ : ì§ˆë³‘ê´€ë¦¬ë³¸ë¶€ 2018 ì†Œì•„ í‘œì¤€ ì‹ ì¥)
 
         if (sex == DATASEX::MEN) {
-            //x1: ¸ö¹«°Ô, x2 : Å°, x3 : ¾ğ¾î ¼ö
+            //x1: ëª¸ë¬´ê²Œ, x2 : í‚¤, x3 : ì–¸ì–´ ìˆ˜, x4 : í¸í–¥(bias)
             trainingDataSet.xMatrix = {
-                73, 180, 2,
-                90, 175, 2,
-                80, 190, 2,
-                65, 171, 3,
-                50, 165, 2,
-                35, 138, 1,
-                19, 109, 1,
-                24, 122, 1,
-                40, 144, 1,
-                50, 150, 1
+                73, 180, 2, 1,
+                90, 175, 2, 1,
+                80, 190, 2, 1,
+                65, 171, 3, 1,
+                50, 165, 2, 1,
+                35, 138, 1, 1,
+                19, 109, 1, 1,
+                24, 122, 1, 1,
+                40, 144, 1, 1,
+                50, 150, 1, 1,
             };
-            //y1 : ¾ÆÀÌ = 0, ¼ºÀÎ = 1 ±¸ºĞ
+            //y1 : ì•„ì´ = 0, ì„±ì¸ = 1 êµ¬ë¶„
             trainingDataSet.yMatrix = {
                 1,
                 1,
@@ -65,20 +65,20 @@ public:
             };
         }
         else {
-            //x1 : ¸ö¹«°Ô, x2 : Å°, x3 : ¾ğ¾î ¼ö
+            //x1 : ëª¸ë¬´ê²Œ, x2 : í‚¤, x3 : ì–¸ì–´ ìˆ˜
             trainingDataSet.xMatrix = {
-                63, 170, 2,
-                60, 165, 2,
-                70, 180, 2,
-                55, 161, 3,
-                46, 163, 2,
-                40, 138, 1,
-                19, 109, 1,
-                24, 122, 1,
-                40, 144, 1,
-                50, 160, 1
+                63, 170, 2, 1,
+                60, 165, 2, 1,
+                70, 180, 2, 1,
+                55, 161, 3, 1,
+                46, 163, 2, 1,
+                40, 138, 1, 1,
+                19, 109, 1, 1,
+                24, 122, 1, 1,
+                40, 144, 1, 1,
+                50, 160, 1, 1
             };
-            //y1 : ¾ÆÀÌ = 0, ¼ºÀÎ = 1 ±¸ºĞ
+            //y1 : ì•„ì´ = 0, ì„±ì¸ = 1 êµ¬ë¶„
             trainingDataSet.yMatrix = {
                 1,
                 1,
@@ -97,7 +97,7 @@ public:
 
     /// <summary>
     /// </summary>
-    /// <returns>cost¸¦ ¹İÈ¯ÇÑ´Ù.</returns>
+    /// <returns>costë¥¼ ë°˜í™˜í•œë‹¤.</returns>
     bool Training() {
         for (int i = 0; i < TRAININGMATRIX_X_N; i++) {
             WUpdate(&wMatrix[i][0], i);
@@ -105,13 +105,13 @@ public:
 
         cost = Cost();
 
-        //bestCostÀÏ ¶§ µ¥ÀÌÅÍ¸¦ ¹é¾÷ÇØµĞ´Ù
+        //bestCostì¼ ë•Œ ë°ì´í„°ë¥¼ ë°±ì—…í•´ë‘”ë‹¤
         if (cost < bestCost) {
             sameCostStack = 0;
             bestWMatrix = wMatrix;
             bestCost = cost;
         }
-        //bestCost°¡ w ±â¿ï±â º¯¼ö °¹¼ö * 10¹ø ÀÌ»ó ¹ß»ıÇÏÁö ¾ÊÀ» °æ¿ì
+        //bestCostê°€ w ê¸°ìš¸ê¸° ë³€ìˆ˜ ê°¯ìˆ˜ * 10ë²ˆ ì´ìƒ ë°œìƒí•˜ì§€ ì•Šì„ ê²½ìš°
         else if (++sameCostStack % (TRAININGMATRIX_X_N * TRAININGMATRIX_Y_N * 1000) == 0) {
             return false;
         }
@@ -119,39 +119,37 @@ public:
     }
 
     double Sigmoid(double hypothesis) {
-        return 1 / (1 + exp(hypothesis));
+        return 1 / (1 + exp(-hypothesis));
     }
-    //value¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
+    //valueë¥¼ ì—…ë°ì´íŠ¸í•œë‹¤.
     void WUpdate(double* value, const int& targetWIndex) {
         double gradient;
 
         gradient = WPartialDerivative(targetWIndex);
         gradient = roundl(gradient * 1000000) * 0.000001;
-        //PrintMatrix<TRAININGMATRIX_X_N, TRAININGMATRIX_Y_N>(wMatrix);
-        cout << "["<< targetWIndex <<"]gradient : " << gradient << endl;
         int dir = 1;
 
-        //Æí¹ÌºĞ ¹æÇâ °ËÃâ
+        //í¸ë¯¸ë¶„ ë°©í–¥ ê²€ì¶œ
         if (gradient > 0)
             dir = -1;
         else if (gradient < 0)
             dir = 1;
         else
-            return; //Æí¹ÌºĞ °á°ú°¡ 0ÀÌ¸é ³ª¾Æ°¥ ¹æÇâÀÌ ¾øÀ¸¹Ç·Î Á¾·á
+            return; //í¸ë¯¸ë¶„ ê²°ê³¼ê°€ 0ì´ë©´ ë‚˜ì•„ê°ˆ ë°©í–¥ì´ ì—†ìœ¼ë¯€ë¡œ ì¢…ë£Œ
 
-        //³ëÀÌÁî°¡ ¸¹Àº Çö½Ç µ¥ÀÌÅÍÀÇ °æ¿ì ¿Ø¸¸ÇÏ¸é All possibe regressionsÀ» »ç¿ëÇÔ
-#pragma region º¯¼ö ¼±ÅÃ¹ı : All possible regressions(´À¸®Áö¸¸ Á¤È®È÷ ÇĞ½ÀÇØ ´ÙÁß°ø¼±¼º ¹®Á¦ ¹ß»ıÈ®·ü ³·À½)
+        //ë…¸ì´ì¦ˆê°€ ë§ì€ í˜„ì‹¤ ë°ì´í„°ì˜ ê²½ìš° ì™ ë§Œí•˜ë©´ All possibe regressionsì„ ì‚¬ìš©í•¨
+#pragma region ë³€ìˆ˜ ì„ íƒë²• : All possible regressions(ëŠë¦¬ì§€ë§Œ ì •í™•íˆ í•™ìŠµí•´ ë‹¤ì¤‘ê³µì„ ì„± ë¬¸ì œ ë°œìƒí™•ë¥  ë‚®ìŒ)
         *value += learningRate * dir;
 #pragma endregion
 
-#pragma region º¯¼ö ¼±ÅÃ¹ı : Forward selection (¸Å¿ì ºü¸£Áö¸¸ ´ëÃæ ÇĞ½ÀÇØ ´ÙÁß°ø¼±¼º ¹®Á¦ ¹ß»ıÈ®·ü ³ôÀ½)
+#pragma region ë³€ìˆ˜ ì„ íƒë²• : Forward selection (ë§¤ìš° ë¹ ë¥´ì§€ë§Œ ëŒ€ì¶© í•™ìŠµí•´ ë‹¤ì¤‘ê³µì„ ì„± ë¬¸ì œ ë°œìƒí™•ë¥  ë†’ìŒ)
                 //while (true) {
                 //    *value += dir * learningRate;
 
                 //    gradient = WPartialDerivative(targetWIndex);
                 //    gradient = roundl(gradient * 1000000) * 0.000001;
 
-                //    //¾çÀÇ ¹æÇâÀ¸·Î °¡¾ßÇÒ ¶§, wGradient°¡ ¾ç¼ö°¡ µÇ¸é Á¾·áÇÑ´Ù. À½¼ö ¹æÇâÀÇ °æ¿ìµµ ¸¶Âù°¡Áö
+                //    //ì–‘ì˜ ë°©í–¥ìœ¼ë¡œ ê°€ì•¼í•  ë•Œ, wGradientê°€ ì–‘ìˆ˜ê°€ ë˜ë©´ ì¢…ë£Œí•œë‹¤. ìŒìˆ˜ ë°©í–¥ì˜ ê²½ìš°ë„ ë§ˆì°¬ê°€ì§€
                 //    if ((dir == 1 && gradient >= 0) || (dir == -1 && gradient <= 0)) {
                 //        break;
                 //    }
@@ -162,10 +160,10 @@ public:
     }
 
     /// <summary>
-    /// targetW ¿ä¼ÒÀÇ Æí¹ÌºĞ ÇÔ¼ö(±â¿ï±â¸¦ ¹İÈ¯ÇÑ´Ù)
+    /// targetW ìš”ì†Œì˜ í¸ë¯¸ë¶„ í•¨ìˆ˜(ê¸°ìš¸ê¸°ë¥¼ ë°˜í™˜í•œë‹¤)
     /// </summary>
-    /// <param name="wMatrix">ÀÌ ÇÔ¼ö´Â wMatrixÀÇ ¿­ÀÌ 0ÀÎ °æ¿ì¿¡¸¸ »ç¿ë°¡´ÉÇÏ´Ù.</param>
-    /// <param name="targetWIndex">w1ÀÌ Å¸°ÙÀÏ °æ¿ì 0À» ÀÎÀÚ·Î Àü´ŞÇÑ´Ù.</param>
+    /// <param name="wMatrix">ì´ í•¨ìˆ˜ëŠ” wMatrixì˜ ì—´ì´ 0ì¸ ê²½ìš°ì—ë§Œ ì‚¬ìš©ê°€ëŠ¥í•˜ë‹¤.</param>
+    /// <param name="targetWIndex">w1ì´ íƒ€ê²Ÿì¼ ê²½ìš° 0ì„ ì¸ìë¡œ ì „ë‹¬í•œë‹¤.</param>
     /// <returns></returns>
     template<int xMatM = TRAININGMATRIX_DATA_M, int xMatN = TRAININGMATRIX_X_N>
     double WPartialDerivative(int targetWIndex) {
@@ -175,10 +173,9 @@ public:
             for (int j = 0; j < xMatN; j++) {
                 hypothesis += trainingDataSet.xMatrix[i][j] * wMatrix[j][0];
             }
-            gradient += trainingDataSet.xMatrix[i][targetWIndex] *
-                (Sigmoid(hypothesis) - trainingDataSet.yMatrix[i][0]);
+            gradient += (Sigmoid(hypothesis) - trainingDataSet.yMatrix[i][0]) * trainingDataSet.xMatrix[i][targetWIndex];
         }
-        gradient /= -xMatM;
+        gradient /= xMatM;
 
         return gradient;
     }
@@ -191,9 +188,9 @@ public:
             for (int j = 0; j < xMatN; j++) {
                 hypothesis += trainingDataSet.xMatrix[i][j] * wMatrix[j][0];
             }
-            cost -= trainingDataSet.yMatrix[i][0] * log(Sigmoid(hypothesis)) + (1 - trainingDataSet.yMatrix[i][0])*log(1 - Sigmoid(hypothesis));
+            cost = trainingDataSet.yMatrix[i][0] * log(Sigmoid(hypothesis)) + (1 - trainingDataSet.yMatrix[i][0])*log(1 - Sigmoid(hypothesis));
         }
-        cost /= xMatM;
+        cost /= -xMatM;
         return cost;
     }
 
@@ -215,59 +212,60 @@ int main()
     Machine* machine = new Machine();
     int trainingNum = 0;
 
-    std::cout << "\n\n cost = -(1/m)¥Ò(y * log(Sigmoid(X)) + (1 - y)log(1-Sigmoid(X)))´ÙÁß ·ÎÁö½ºÆ½ È¸±Í ¹®Á¦ ÈÆ·Ã" << endl;
-    std::cout << "µ¥ÀÌÅÍÀÇ ¼ºº°(³²¼º : 0, ¿©¼º : 1)À» ¼³Á¤ÇØÁÖ¼¼¿ä. : ";
+    std::cout << "\n ë‹¤ë³€ìˆ˜ ì´ì§„ ë¶„ë¥˜ ë¬¸ì œ í›ˆë ¨\n\n" << endl;
+    //std::cout << "\n cost = -(1/m)Î£( y * log(Sigmoid(X)) + (1 - y)log(1-Sigmoid(X)) ) \n\n\n" << endl;
+    std::cout << "Training Dataì˜ ì„±ë³„ì„ ì„¤ì •í•´ì£¼ì„¸ìš”.\n (ë‚¨ì„±(male) : 0, ì—¬ì„±(female) : 1) : ";
     int sexInt;
     cin >> sexInt;
     DATASEX sex = (DATASEX)sexInt;
     if (sex == DATASEX::MEN) {
-        std::cout << "ÈÆ·Ã µ¥ÀÌÅÍ´Â ³²¼º 3¼¼ ~ ¼ºÀÎÀ¸·Î ÆíÇâµÇ¾ú½À´Ï´Ù." << endl;
+        std::cout << "\të‚¨ì„±(male) 3ì„¸ ~ 30ì„¸ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\n" << endl;
     }
     else {
-        std::cout << "ÈÆ·Ã µ¥ÀÌÅÍ´Â ¿©¼º 3¼¼ ~ ¼ºÀÎÀ¸·Î ÆíÇâµÇ¾ú½À´Ï´Ù." << endl;
+        std::cout << "\tì—¬ì„±(female) 3ì„¸ ~ 30ì„¸ë¡œ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤.\n" << endl;
     }
     machine->TrainingDataSetup(sex);
 
 
-    std::cout << "ÈÆ·Ã È½¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä(ÃßÃµ°ª : 100 ÀÌ»ó) : ";
+    std::cout << "\ní›ˆë ¨ íšŸìˆ˜(epoch)ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”(ì¶”ì²œê°’ : 100 ì´ìƒ) : ";
     cin >> trainingNum;
 
     while (machine->learningRate == 0) {
-        cout << "0À» Á¦¿ÜÇÑ ÇĞ½À·üÀ» ¼³Á¤ÇØÁÖ¼¼¿ä.(ÃßÃµ°ª : 0.001 ÀÌÇÏ)" << endl;
-        cout << " ¼ıÀÚ°¡ Å¬¼ö·Ï ÇĞ½À º¯µ¿ÆøÀÌ Ä¿Áö°í, ÀÛÀ»¼ö·Ï ÇĞ½À Á¤È®µµ°¡ ³ô¾ÆÁı´Ï´Ù. : ";
+        cout << "\n0ì„ ì œì™¸í•œ Learning rateì„ ì„¤ì •í•´ì£¼ì„¸ìš”.(ì¶”ì²œê°’ : 0.001 ì´í•˜)" << endl;
+        cout << " ìˆ«ìê°€ í´ìˆ˜ë¡ í•™ìŠµ ë³€ë™í­ì´ ì»¤ì§€ê³ , ì‘ì„ìˆ˜ë¡ í•™ìŠµ ì •í™•ë„ê°€ ë†’ì•„ì§‘ë‹ˆë‹¤. : ";
         cin >> machine->learningRate;
     }
 
-    //¼Ò¼öÁ¡ °íÁ¤
+    //ì†Œìˆ˜ì  ê³ ì •
     std::cout << fixed;
-    //doubleÇü ÃÖ´ë º¸Àå ¹üÀ§ÀÎ ¼Ò¼öÁ¡ 15ÀÚ¸® ÀÌ»ó±îÁö Ãâ·Â
+    //doubleí˜• ìµœëŒ€ ë³´ì¥ ë²”ìœ„ì¸ ì†Œìˆ˜ì  15ìë¦¬ ì´ìƒê¹Œì§€ ì¶œë ¥
     std::cout.precision(15);
 
     double printCost = -1;
     printCost = machine->cost;
     std::cout << "------------------------------------------------" << endl;
-    std::cout << "0¹øÂ° ¼¼´ë" << endl;
+    std::cout << "0ë²ˆì§¸ ì„¸ëŒ€" << endl;
     std::cout << "BestCost : " << printCost << endl;
     std::cout << "BestWMatrix : " << endl;
     machine->PrintMatrix<TRAININGMATRIX_X_N, TRAININGMATRIX_Y_N>(machine->wMatrix);
     std::cout << "------------------------------------------------" << endl;
-#pragma region ÈÆ·Ã ½ÃÀÛ
+#pragma region í›ˆë ¨ ì‹œì‘
 
     int curRepeatNum = 1;
     for (; curRepeatNum <= trainingNum; curRepeatNum++) {
         if (machine->Training() == false) {
-            cout << "ÄÚ½ºÆ® °³¼±ÀÌ º¯¼ö °¹¼ö * 10¹ø ½ÇÆĞ, ÃÖÀûÇØÀÌ¹Ç·Î ÈÆ·Ã Á¾·á" << endl;
+            cout << "ì½”ìŠ¤íŠ¸ ê°œì„ ì´ ë³€ìˆ˜ ê°¯ìˆ˜ * 10ë²ˆ ì‹¤íŒ¨, ìµœì í•´ì´ë¯€ë¡œ í›ˆë ¨ ì¢…ë£Œ" << endl;
             break;
         }
         printCost = machine->cost;
 
-        //¼Ò¼öÁ¡ 15ÀÚ¸® ÀÌ»ó±îÁö ¹İ¿Ã¸²
+        //ì†Œìˆ˜ì  15ìë¦¬ ì´ìƒê¹Œì§€ ë°˜ì˜¬ë¦¼
         printCost = roundl(printCost * 100000000000000) * 0.00000000000001;
 
-        //100¹ø¸¶´Ù Ãâ·ÂÇÏ°Å³ª, ÄÚ½ºÆ®°¡ 0ÀÌ µÇ¾úÀ» ¶§ Ãâ·Â
-        if (curRepeatNum % 1 == 0 || printCost <= 0) {
+        //50ë²ˆë§ˆë‹¤ ì¶œë ¥í•˜ê±°ë‚˜, ì½”ìŠ¤íŠ¸ê°€ 0ì´ ë˜ì—ˆì„ ë•Œ ì¶œë ¥
+        if (curRepeatNum % 50 == 0 || printCost <= 0) {
             std::cout << "------------------------------------------------" << endl;
-            std::cout << curRepeatNum << "¹øÂ° ¼¼´ë" << endl;
+            std::cout << curRepeatNum << "ë²ˆì§¸ ì„¸ëŒ€" << endl;
 
             std::cout << "cost : " << printCost << endl;
             std::cout << "wMatrix : " << endl;
@@ -280,40 +278,46 @@ int main()
     
 #pragma endregion
 
+    system("pause");
+    system("cls");
+
+    //ì†Œìˆ˜ì  4ìë¦¬ê¹Œì§€ ì¶œë ¥
+    std::cout.precision(4);
     std::cout << "------------------------------------------------" << endl;
-    std::cout << curRepeatNum << "¹øÂ° ¼¼´ë" << endl;
+    std::cout << curRepeatNum << "ë²ˆì§¸ ì„¸ëŒ€" << endl;
     std::cout << "BestCost : " << machine->bestCost << endl;
     std::cout << "BestWMatrix : " << endl;
     machine->PrintMatrix<TRAININGMATRIX_X_N, TRAININGMATRIX_Y_N>(machine->bestWMatrix);
 
-    
+    std::cout << "í›ˆë ¨ ì¢…ë£Œ ëª¨ë¸ CrossEntropy ì˜¤ì°¨ : " << machine->bestCost << endl<< endl<< endl;
+
     
     if(sex == DATASEX::MEN)
-        std::cout << "µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ¸é (³²¼º) Å¸°ÙÀÇ ¼ºÀÎ/¾ÆÀÌ À¯¹«¸¦ ¿¹ÃøÇÕ´Ï´Ù." << endl;
+        std::cout << "Dataë¥¼ ì…ë ¥í•˜ë©´ ë‚¨ì„±(male) Targetì˜ Adult & Child ìœ ë¬´ë¥¼ ì˜ˆì¸¡í•©ë‹ˆë‹¤." << endl;
     else
-        std::cout << "µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ¸é (¿©¼º) Å¸°ÙÀÇ ¼ºÀÎ/¾ÆÀÌ À¯¹«¸¦ ¿¹ÃøÇÕ´Ï´Ù." << endl;
+        std::cout << "Dataë¥¼ ì…ë ¥í•˜ë©´ ì—¬ì„±(female) Targetì˜ Adult & Child ìœ ë¬´ë¥¼ ì˜ˆì¸¡í•©ë‹ˆë‹¤." << endl;
     int yesOrNo = 1;
     while (yesOrNo == 1) {
-        std::cout << "¸ğµ¨ÀÌ ÇĞ½ÀÇÏÁö ¸øÇÑ µ¥ÀÌÅÍÀ² : " << machine->bestCost * 100 << "%" << endl;
 
         int process = 0;
-        int newData[3];
+        int newData[TRAININGMATRIX_X_N] = {0};
         while (process < 3)
         {
             switch (process) {
             case 0:
-                std::cout << "  »ùÇÃÀÇ ¸ö¹«°Ô¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+                std::cout << "  targetì˜ ëª¸ë¬´ê²Œ(weight)ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” : ";
                 break;
             case 1:
-                std::cout << "  »ùÇÃÀÇ Å°¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+                std::cout << "  targetì˜ í‚¤(height)ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” : ";
                 break;
             case 2:
-                std::cout << "  »ùÇÃÀÇ ¾ğ¾î ¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ";
+                std::cout << "  targetì˜ ì‚¬ìš© ì–¸ì–´ ìˆ˜(Number of languages spoken)ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” : ";
                 break;
             }
             cin >> newData[process];
             process++;
         }
+        newData[TRAININGMATRIX_X_N - 1] = 1; //í¸í–¥(bias)ì„ ìœ„í•œ Input
 
         double hypothesis = 0;
         for (int j = 0; j < TRAININGMATRIX_X_N; j++) {
@@ -322,16 +326,17 @@ int main()
         double logistic = machine->Sigmoid(hypothesis);
         std::cout << "logistic : " << (logistic) << "." << endl;
         if ((logistic > 0.5))
-            //std::cout << "´ë»óÀº " << (logistic - 0.5) * 200 << " È®·ü·Î ¾î¸¥ÀÔ´Ï´Ù." << endl;
-            std::cout << "´ë»óÀº " << logistic * 100 << " È®·ü·Î ¾î¸¥ÀÔ´Ï´Ù." << endl;
+            std::cout << "Targetì€ " << (logistic - 0.5) * 200 << "% í™•ë¥ ë¡œ ì–´ë¥¸(adult)ì…ë‹ˆë‹¤." << endl;
         else
-            //std::cout << "´ë»óÀº " << 100 / (1 + logistic) << " È®·ü·Î ¾ÆÀÌÀÔ´Ï´Ù." << endl;
-            std::cout << "´ë»óÀº " << 100 / (1+logistic) << " È®·ü·Î ¾ÆÀÌÀÔ´Ï´Ù." << endl;
+            std::cout << "Targetì€ " << 100 / (1+logistic) << "% í™•ë¥ ë¡œ ì•„ì´(child)ì…ë‹ˆë‹¤." << endl;
 
-        std::cout << "ÇÑ¹ø ´õ ¿¹ÃøÇÏ½Ã°Ú½À´Ï±î? (¿¹ : 1, ¾Æ´Ï¿À : 0)" << endl;
+        std::cout << "í•œë²ˆ ë” ì˜ˆì¸¡í•˜ì‹œê² ìŠµë‹ˆê¹Œ? (yes : 1, no : 0)" << endl;
         cin >> yesOrNo;
     }
 
     system("pause");
+
+    std::cout << "\n ë‹¤ë³€ìˆ˜ ì´ì§„ ë¶„ë¥˜ ë¬¸ì œ í›ˆë ¨ ì¢…ë£Œ.." << endl;
+    std::cout << "\n cost = -(1/m)Î£( y * log(Sigmoid(X)) + (1 - y)log(1-Sigmoid(X)) ) \n\n\n" << endl;
     return 0;
 }
